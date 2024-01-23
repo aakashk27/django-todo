@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container d-flex d-flex-column justify-content-center mt-5">
+    <h1>{% block title %} Task List {% endblock %}</h1>
+  </div>
+  <div class="container mb-3" >
+    {% if todo_list %}
+      <ol>
+        {% for todo in todo_list %}
+          <li>
+            {% if todo.completed %}
+              <strike>{{ todo.title }}</strike>
+            {% else %}
+              <strong>Title:</strong> {{ todo.title }}<br> 
+              <strong>Details:</strong> {{ todo.details }}<br>
+              {% if todo.image %}<strong>Image:</strong> <img src="{{ todo.image.url }}" alt="Todo Image" style="max-width: 100px;"><br>{% endif %}
+              <strong>Date Created:</strong> {{ todo.date_created }} <br>
+              <a href="{% url 'complete_task' pk=todo.id|default:'' %}">Complete task</a>
+            {% endif %}
+
+            <br>
+            <a href="{% url 'update_task' pk=todo.id|default:'' %}">Update</a><br>
+            <a href="{% url 'delete_task' pk=todo.id|default:'' %}">Delete</a>
+          </li>
+          <hr>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <p>No tasks available</p>
+    {% endif %}
+    <button type="submit" name="button"><a href="{% url 'add' %}">Add</a></button>
+  </div>
+{% endblock %}

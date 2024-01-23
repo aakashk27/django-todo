@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container d-flex d-flex-column justify-content-center mt-5 ">
+    <h1>{% block title %} Add a new task {% endblock %}</h1>
+  </div>
+  <div class="container mb-3">
+    <form class="" action="{% url 'add' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" name="button">Add</button>
+    </form>
+  </div>
+{% endblock %}
+
+
+
